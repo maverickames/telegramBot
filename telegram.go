@@ -1,4 +1,4 @@
-package main
+package telegrambot
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-func sendTelegramBotNotification(message string) error {
+func SendTelegramBotNotification(message string) error {
 	botToken := os.Getenv("TELEGRAM_BOT_TOKEN")
 	if botToken == "" {
 		return fmt.Errorf("TELEGRAM_BOT_TOKEN env not set")
