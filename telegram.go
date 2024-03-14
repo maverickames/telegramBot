@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-func SendTelegramBotNotification(message string) error {
+func SendTelegramBotNotification(message string, parseMode string) error {
 	botToken := os.Getenv("TELEGRAM_BOT_TOKEN")
 	if botToken == "" {
 		return fmt.Errorf("TELEGRAM_BOT_TOKEN env not set")
@@ -19,7 +19,12 @@ func SendTelegramBotNotification(message string) error {
 	}
 
 	endpoint := fmt.Sprintf("https://api.telegram.org/bot%s/sendMessage", botToken)
-	response, err := http.PostForm(endpoint, url.Values{"chat_id": {chatID}, "text": {message}})
+	response, err := http.PostForm(endpoint,
+		url.Values{
+			"chat_id":    {chatID},
+			"text":       {message},
+			"parse_mode": {parseMode},
+		})
 	if err != nil {
 		return err
 	}
